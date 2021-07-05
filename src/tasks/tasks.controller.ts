@@ -19,6 +19,11 @@ export class TasksController {
     // Inject tasks service
     constructor(private tasksService: TasksService) {}
 
+    @Get()
+    getTasks(@Query() filterDTO: GetTaskFilterDTO): Promise<Task[]> {
+        return this.tasksService.getTasks(filterDTO);
+    }
+
     @Get('/:id')
     getTaskById(@Param('id') id: string): Promise<Task> {
         return this.tasksService.getTasksById(id);
@@ -46,16 +51,4 @@ export class TasksController {
         const { status } = updateTaskDTO;
         return this.tasksService.updateTaskStatus(id, status);
     }
-
-    // ! Old Code
-    // @Get()
-    // getTasks(@Query() filterDTO: GetTaskFilterDTO): Task[] {
-    //     // If we have any filters defined, call tasksService.getTasksWithFilters
-    //     // otherwise, just get all tasks
-    //     if (Object.keys(filterDTO).length) {
-    //         return this.tasksService.getTasksWithFilters(filterDTO);
-    //     }
-
-    //     return this.tasksService.getAllTasks();
-    // }
 }
