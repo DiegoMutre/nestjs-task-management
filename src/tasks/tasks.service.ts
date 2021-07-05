@@ -9,6 +9,10 @@ import { Task } from './tasks.entity';
 export class TasksService {
     constructor(private taskRepository: TaskRepository) {}
 
+    async getTasks(filterDTO: GetTaskFilterDTO): Promise<Task[]> {
+        return this.taskRepository.getTasks(filterDTO);
+    }
+
     async getTasksById(id: string): Promise<Task> {
         // Try to get a task
         const found = await this.taskRepository.findOne(id);
@@ -37,30 +41,4 @@ export class TasksService {
 
         return task;
     }
-
-    // ! Old Code
-    // getAllTasks(): Task[] {
-    //     return this.tasks;
-    // }
-    // getTasksWithFilters(filterDTO: GetTaskFilterDTO): Task[] {
-    //     const { search, status } = filterDTO;
-    //     let tasks = this.getAllTasks();
-    //     if (status) {
-    //         tasks = this.tasks.filter(task => task.status === status);
-    //     }
-    //     if (search) {
-    //         tasks = this.tasks.filter(task => {
-    //             if (
-    //                 task.title.toLowerCase().includes(search.toLowerCase()) ||
-    //                 task.description
-    //                     .toLowerCase()
-    //                     .includes(search.toLowerCase())
-    //             ) {
-    //                 return true;
-    //             }
-    //             return false;
-    //         });
-    //     }
-    //     return tasks;
-    // }
 }
