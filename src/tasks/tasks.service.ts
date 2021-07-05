@@ -29,8 +29,16 @@ export class TasksService {
         return this.taskRepository.deleteTaskById(id);
     }
 
+    async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+        const task = await this.getTasksById(id);
+
+        task.status = status;
+        this.taskRepository.save(task);
+
+        return task;
+    }
+
     // ! Old Code
-    // private tasks: Task[] = [];
     // getAllTasks(): Task[] {
     //     return this.tasks;
     // }
@@ -54,11 +62,5 @@ export class TasksService {
     //         });
     //     }
     //     return tasks;
-    // }
-
-    // updateTaskStatus(id: string, status: TaskStatus): Task {
-    //     const task = this.getTaskById(id);
-    //     task.status = status;
-    //     return task;
     // }
 }
