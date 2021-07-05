@@ -33,6 +33,11 @@ export class TasksController {
         return this.tasksService.createTask(createTaskDTO);
     }
 
+    @Delete('/:id')
+    deleteTaskById(@Param('id') id: string) {
+        return this.tasksService.deleteTaskById(id);
+    }
+
     // ! Old Code
     // @Get()
     // getTasks(@Query() filterDTO: GetTaskFilterDTO): Task[] {
@@ -48,11 +53,6 @@ export class TasksController {
     // @Get('/:id')
     // getTaskById(@Param('id') id: string): Task {
     //     return this.tasksService.getTaskById(id);
-    // }
-
-    // @Delete('/:id')
-    // deleteTaskById(@Param('id') id: string): Task[] {
-    //     return this.tasksService.deleteTaskById(id);
     // }
 
     // @Patch('/:id/status')
