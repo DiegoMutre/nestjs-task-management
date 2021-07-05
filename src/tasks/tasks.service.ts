@@ -10,13 +10,19 @@ export class TasksService {
     constructor(private taskRepository: TaskRepository) {}
 
     async getTasksById(id: string): Promise<Task> {
+        // Try to get a task
         const found = await this.taskRepository.findOne(id);
 
+        // If not found, throw an 404 error
         if (!found) {
-            throw new NotFoundException(`Task with ID ${id} not found`);
+            throw new NotFoundException(`Task with ID ${id} not found`); // The message is optional
         }
-
+        // otherwise,  return the found task
         return found;
+    }
+
+    createTask(createTaskDTO: CreateTaskDTO): Promise<Task> {
+        return this.taskRepository.createTask(createTaskDTO);
     }
 
     // ! Old Code
@@ -45,27 +51,7 @@ export class TasksService {
     //     }
     //     return tasks;
     // }
-    // getTaskById(id: string): Task {
-    //     // Try to get a task
-    //     const found = this.tasks.find(task => task.id === id);
-    //     // If not found, throw an 404 error
-    //     if (!found) {
-    //         throw new NotFoundException(`Task with ID ${id} not found`); // The message is optional
-    //     }
-    //     // otherwise,  return the found task
-    //     return found;
-    // }
-    // createTask(createTaskDTO: CreateTaskDTO): Task {
-    //     const { title, description } = createTaskDTO; // This only works when the class is defined as a type
-    //     const task: Task = {
-    //         id: uuid(),
-    //         title,
-    //         description,
-    //         status: TaskStatus.OPEN,
-    //     };
-    //     this.tasks.push(task);
-    //     return task;
-    // }
+
     // deleteTaskById(id: string): Task[] {
     //     const found = this.getTaskById(id);
     //     this.tasks = this.tasks.filter(task => task.id !== found.id);
