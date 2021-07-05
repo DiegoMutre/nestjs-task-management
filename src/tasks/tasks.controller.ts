@@ -11,6 +11,7 @@ import {
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { GetTaskFilterDTO } from './dto/get-tasks-filters.dto';
 import { UpdateTaskStatusDTO } from './dto/update-task-status.dto';
+import { Task } from './tasks.entity';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks') // 'apiURL/tasks
@@ -18,6 +19,12 @@ export class TasksController {
     // Inject tasks service
     constructor(private tasksService: TasksService) {}
 
+    @Get('/:id')
+    getTaskById(@Param('id') id: string): Promise<Task> {
+        return this.tasksService.getTasksById(id);
+    }
+
+    // ! Old Code
     // @Get()
     // getTasks(@Query() filterDTO: GetTaskFilterDTO): Task[] {
     //     // If we have any filters defined, call tasksService.getTasksWithFilters
