@@ -24,6 +24,15 @@ export class TasksController {
         return this.tasksService.getTasksById(id);
     }
 
+    @Post()
+    createTask(
+        // Dummy example before the good approach
+        // @Body('title') title: string, // param : 'title' - arg name: title - arg type: string
+        @Body() createTaskDTO: CreateTaskDTO,
+    ): Promise<Task> {
+        return this.tasksService.createTask(createTaskDTO);
+    }
+
     // ! Old Code
     // @Get()
     // getTasks(@Query() filterDTO: GetTaskFilterDTO): Task[] {
@@ -39,15 +48,6 @@ export class TasksController {
     // @Get('/:id')
     // getTaskById(@Param('id') id: string): Task {
     //     return this.tasksService.getTaskById(id);
-    // }
-
-    // @Post()
-    // createTask(
-    //     // Dummy example before the good approach
-    //     // @Body('title') title: string, // param : 'title' - arg name: title - arg type: string
-    //     @Body() createTaskDTO: CreateTaskDTO,
-    // ): Task {
-    //     return this.tasksService.createTask(createTaskDTO);
     // }
 
     // @Delete('/:id')
