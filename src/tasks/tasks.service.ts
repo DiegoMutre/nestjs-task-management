@@ -25,6 +25,10 @@ export class TasksService {
         return this.taskRepository.createTask(createTaskDTO);
     }
 
+    deleteTaskById(id: string) {
+        return this.taskRepository.deleteTaskById(id);
+    }
+
     // ! Old Code
     // private tasks: Task[] = [];
     // getAllTasks(): Task[] {
@@ -52,11 +56,6 @@ export class TasksService {
     //     return tasks;
     // }
 
-    // deleteTaskById(id: string): Task[] {
-    //     const found = this.getTaskById(id);
-    //     this.tasks = this.tasks.filter(task => task.id !== found.id);
-    //     return this.tasks;
-    // }
     // updateTaskStatus(id: string, status: TaskStatus): Task {
     //     const task = this.getTaskById(id);
     //     task.status = status;
