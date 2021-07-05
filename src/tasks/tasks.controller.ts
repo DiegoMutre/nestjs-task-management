@@ -38,6 +38,15 @@ export class TasksController {
         return this.tasksService.deleteTaskById(id);
     }
 
+    @Patch('/:id/status')
+    updateTaskById(
+        @Param('id') id: string,
+        @Body() updateTaskDTO: UpdateTaskStatusDTO,
+    ): Promise<Task> {
+        const { status } = updateTaskDTO;
+        return this.tasksService.updateTaskStatus(id, status);
+    }
+
     // ! Old Code
     // @Get()
     // getTasks(@Query() filterDTO: GetTaskFilterDTO): Task[] {
@@ -48,19 +57,5 @@ export class TasksController {
     //     }
 
     //     return this.tasksService.getAllTasks();
-    // }
-
-    // @Get('/:id')
-    // getTaskById(@Param('id') id: string): Task {
-    //     return this.tasksService.getTaskById(id);
-    // }
-
-    // @Patch('/:id/status')
-    // updateTaskById(
-    //     @Param('id') id: string,
-    //     @Body() updateTaskDTO: UpdateTaskStatusDTO,
-    // ) {
-    //     const { status } = updateTaskDTO;
-    //     return this.tasksService.updateTaskStatus(id, status);
     // }
 }
