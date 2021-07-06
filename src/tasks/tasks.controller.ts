@@ -7,7 +7,9 @@ import {
     Patch,
     Post,
     Query,
+    UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { GetTaskFilterDTO } from './dto/get-tasks-filters.dto';
 import { UpdateTaskStatusDTO } from './dto/update-task-status.dto';
@@ -15,6 +17,7 @@ import { Task } from './tasks.entity';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks') // 'apiURL/tasks
+@UseGuards(AuthGuard()) // Protect with JWT and passport
 export class TasksController {
     // Inject tasks service
     constructor(private tasksService: TasksService) {}
